@@ -1,3 +1,6 @@
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
+
 const FeedbackSchema = new Schema({
     title: {
         type: String,
@@ -10,5 +13,4 @@ const FeedbackSchema = new Schema({
 }, { timestamps: true });
 
 const Feedback = mongoose.model('Feedback', FeedbackSchema);
-
-export { Feedback, FeedbackForm, FeedbackField, Review };
+export default Feedback;

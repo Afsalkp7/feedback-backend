@@ -1,15 +1,9 @@
 import express from 'express';
-import { login, register, verified } from '../controllers/authController.js';
 const router = express.Router();
+import {addFeedbackForm} from '../controllers/feedbackController.js'
 
 
-// Register Route
-router.post('/register', register);
-
-// Verify Email Route
-router.get('/verify/:token', verified);
-
-// Login Route
-router.post('/login', login);
+// Feed add Route
+router.post('/add', addFeedbackForm);
 
 export default router;

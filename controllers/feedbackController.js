@@ -1,11 +1,14 @@
-import FeedbackField  from '../models/FeedbackField'; // Ensure models are imported correctly
-import FeedbackForm from '../models/FeedbackForm'
+import FeedbackField from '../models/FeedbackField.js';
+import FeedbackForm from '../models/FeedbackForm.js';
 
-const addFeedbackForm = async (title, fields) => {
+// Controller function to handle adding a feedback form
+export const addFeedbackForm = async (req, res) => {
+    const { title, fields } = req.body;
+
     try {
         // Validate input
         if (!title || !fields || fields.length < 1 || fields.length > 7) {
-            throw new Error("Invalid input: Title is required, and fields must be between 1 and 7.");
+            return res.status(400).json({ message: "Invalid input: Title is required, and fields must be between 1 and 7." });
         }
 
         // Create FeedbackFields and store their IDs
@@ -30,10 +33,10 @@ const addFeedbackForm = async (title, fields) => {
         // Save the feedback form to the database
         await feedbackForm.save();
 
-        console.log("Feedback form created successfully:", feedbackForm);
-        return feedbackForm; // Return the created feedback form
+        // Respond with the created feedback form
+        res.status(201).json(feedbackForm);
     } catch (error) {
         console.error("Error creating feedback form:", error.message);
-        throw error; // Rethrow the error for further handling if needed
+        res.status(500).json({ message: "Error creating feedback form", error: error.message });
     }
 };

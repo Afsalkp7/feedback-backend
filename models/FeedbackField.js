@@ -26,3 +26,4 @@ const FeedbackFieldSchema = new Schema({
 });
 
 const FeedbackField = mongoose.model('FeedbackField', FeedbackFieldSchema);
+export default FeedbackField;

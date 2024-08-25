@@ -1,3 +1,6 @@
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
+
 const ReviewSchema = new Schema({
     feedbackForm: {
         type: Schema.Types.ObjectId,
@@ -6,7 +9,7 @@ const ReviewSchema = new Schema({
     },
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'User', 
+        ref: 'User', // Ensure that a User model exists if using this reference
         required: true
     },
     responses: [{
@@ -19,3 +22,4 @@ const ReviewSchema = new Schema({
 }, { timestamps: true });
 
 const Review = mongoose.model('Review', ReviewSchema);
+export default Review;
