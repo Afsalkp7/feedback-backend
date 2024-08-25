@@ -26,3 +26,19 @@ sample body data on add feed
         }
     ]
 }
+
+Replay or feedback dummy 
+{
+    "feedbackFormId": "66cb605e4e157eccaded63f7",  
+    "userId": "66cb61aaf1aee9b8f9599a46",       
+    "responses": [
+        {
+            "field": "66cb605e4e157eccaded63f3", 
+            "value": "Excellent"               
+        },
+        {
+            "field": "66cb605e4e157eccaded63f1",
+            "value": 4  
+        }
+    ]
+}
