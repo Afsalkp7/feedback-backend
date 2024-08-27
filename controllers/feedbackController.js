@@ -4,6 +4,8 @@ import Review from '../models/Review.js';
 import User from '../models/User.js'
 // Controller function to handle adding a feedback form
 export const addFeedbackForm = async (req, res) => {
+    console.log(req.body);
+    
     const { title, fields } = req.body;
 
     try {
