@@ -11,10 +11,6 @@ const UserSchema = new Schema({
         type: String, 
         required: true 
     },
-    isVerified: {
-        type: Boolean, 
-        default: false 
-    },
     feedbacks: [{ 
         type: Schema.Types.ObjectId, 
         ref: 'feedback' 
