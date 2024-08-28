@@ -15,8 +15,8 @@ const app = express();
 // database();
 
 // // Routes
-// app.use('/api/auth', auth);
-// app.use('/api/feed', feed);
+app.use('/api/auth', auth);
+app.use('/api/feed', feed);
 
 app.get('/',(req,res)=>{
     res.status(200).json({msg:'connect'})
