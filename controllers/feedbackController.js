@@ -1,4 +1,5 @@
 
+import mongoose from 'mongoose';
 import FeedbackField from '../models/FeedbackField.js';
 import FeedbackForm from '../models/FeedbackForm.js';
 import Review from '../models/Review.js';
@@ -117,6 +118,50 @@ export const showFeeds = async (req, res) => {
 };
 
 
+// export const userReviewedFeedbacks = async (req, res) => {
+//     try {
+        
+//         const userId = req.user;
+
+//         // Fetch the user from the database
+//         const user = await User.findById(userId).select('feedbacks');
+        
+        
+
+//         if (!user) {
+//             return res.status(404).json({ message: 'User not found' });
+//         }
+
+//         // Extract the feedback IDs
+//         const feedbackIds = user.feedbacks;
+
+//         if (feedbackIds.length === 0) {
+//             return res.status(200).json({ feedbacks: [] }); // No feedbacks found for the user
+//         }
+//         console.log(feedbackIds);
+//         // Fetch all feedbacks that match the user.feedbacks IDs
+//         const feedbacks = await FeedbackForm.find({ _id: { $in: feedbackIds } });
+        
+        
+//         // Respond with the feedback IDs
+//         res.status(200).json({ feedbacks });
+//     } catch (error) {
+//         console.error("Error fetching user reviewed feedbacks:", error.message);
+//         res.status(500).json({ message: 'Server error', error: error.message });
+//     }
+// };
+// Adjust the import according to your file structure
+
+ // Adjust the import according to your file structure
+
+// Adjust the import according to your file structure
+ 
+// Adjust the import according to your file structure
+
+ // Ensure mongoose is imported correctly
+ // Adjust the import according to your file structure
+// Adjust the import according to your file structure
+
 export const userReviewedFeedbacks = async (req, res) => {
     try {
         const userId = req.user;
@@ -128,10 +173,33 @@ export const userReviewedFeedbacks = async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        // Extract the feedback IDs
+        // Extract feedback IDs
         const feedbackIds = user.feedbacks;
-        // Respond with the feedback IDs
-        res.status(200).json({ feedbackIds });
+
+        // Check if feedback IDs are empty
+        if (!feedbackIds || feedbackIds.length === 0) {
+            return res.status(200).json({ feedbackIds: [] }); // No feedbacks found for the user
+        }
+
+        // Log the feedback IDs for debugging
+        console.log("Feedback IDs:", feedbackIds);
+
+        // Convert feedback IDs to ObjectId
+        const objectIdFeedbackIds = feedbackIds.map(id => new mongoose.Types.ObjectId(id));
+        console.log("Converted Feedback IDs:", objectIdFeedbackIds);
+
+        // Fetch all reviews that match the user.feedbacks IDs
+        const reviews = await Review.find({ _id: { $in: objectIdFeedbackIds } });
+
+        // Log the fetched reviews for debugging
+        console.log("Fetched Reviews:", reviews);
+
+        // Extract feedbackForm IDs from reviews
+        const feedbackFormIds = reviews.map(review => review.feedbackForm);
+        console.log("Feedback Form IDs:", feedbackFormIds);
+
+        // Respond with the feedbackForm IDs
+        res.status(200).json({ feedbackIds: feedbackFormIds });
     } catch (error) {
         console.error("Error fetching user reviewed feedbacks:", error.message);
         res.status(500).json({ message: 'Server error', error: error.message });
