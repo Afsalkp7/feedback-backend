@@ -9,12 +9,12 @@ dotenv.config()
 
 const app = express();
 
-// app.use(bodyParser.json())
-// app.use(cors())
+app.use(bodyParser.json())
+app.use(cors())
 
-// database();
+database();
 
-// // Routes
+// Routes
 app.use('/api/auth', auth);
 app.use('/api/feed', feed);
 
